@@ -4,27 +4,17 @@ Module for safely getting a value from a dictionary.
 """
 
 
-from typing import Mapping, Any, TypeVar, Union
+from typing import Any, Mapping, Union, TypeVar
+
 
 T = TypeVar('T')
+Res = Union[Any, T]
+Def = Union[T, None]
 
 
-def safely_get_value(
-    dct: Mapping[Any, T],
-    key: Any,
-    default: Union[T, None] = None
-) -> Union[T, None]:
-    """
-    Safely get a value from a dictionary.
-
-    Parameters:
-    dct (Mapping[Any, T]): The dictionary from which to retrieve the value.
-    key (Any): The key to look for in the dictionary.
-    default (Union[T, None]): The value to return if the key is not found
-
-    Returns:
-    Union[T, None]: The value associated with the key, or default
-    """
+def safely_get_value(dct: Mapping, key: Any, default: Def = None) -> Res:
+    '''Retrieves a value from a dict using a given key.
+    '''
     if key in dct:
         return dct[key]
     else:
