@@ -8,7 +8,9 @@ and returns the list of delays in ascending order.
 
 import asyncio
 from typing import List
-from 0-basic_async_syntax import wait_random
+
+
+wait_random = __import__('0-basic_async_syntax').wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
@@ -24,16 +26,7 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     Returns:
         List[float]: A list of delays in ascending order.
     """
-    delays = []
-
-    for _ in range(n):
-        delay = await wait_random(max_delay)
-        delays.append(delay)
-
-    ordered_delays = []
-    while delays:
-        min_delay = min(delays)
-        ordered_delays.append(min_delay)
-        delays.remove(min_delay)
-
-    return ordered_delays
+    wait_times = await asyncio.gather(
+        *tuple(map(lambda _: wait_random(max_delay), range(n)))
+    )
+    return sorted(wait_times)
