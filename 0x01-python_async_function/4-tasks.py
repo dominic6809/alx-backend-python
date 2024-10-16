@@ -9,24 +9,19 @@ and returns the list of delays in ascending order.
 import asyncio
 from typing import List
 
-
 task_wait_random = __import__('3-tasks').task_wait_random
 
 
 async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """
-    Spawns task_wait_random n times with the specified max_delay
-    and returns the list of delays
-    in ascending order without using sort().
+    Spawns task_wait_random n times with the specified max_delay.
 
-    Arguments:
-        n (int): Number of times to spawn task_wait_random.
-        max_delay (int): Maximum number of seconds to wait.
+    Args:
+        n (int): The number of times to spawn task_wait_random.
+        max_delay (int): The maximum delay to pass to task_wait_random.
 
     Returns:
-        List[float]: A list of delays in ascending order.
+        List[float]: List of delays in ascending order.
     """
-    wait_times = await asyncio.gather(
-        *tuple(map(lambda _: task_wait_random(max_delay), range(n)))
-    )
-    return sorted(wait_times)
+    tasks = [task_wait_random(max_delay) for _ in range(n)]
+    return sorted(await asyncio.gather(*tasks))
