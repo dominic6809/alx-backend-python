@@ -24,7 +24,9 @@ class TestAccessNestedMap(unittest.TestCase):
     def test_access_nested_map(self, nested_map: Dict,
                                path: Tuple[str, ...],
                                expected: Any) -> None:
-        """Test access_nested_map returns correct values for different inputs."""
+        """
+        Test access_nested_map returns correct values for different inputs.
+        """
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
     @parameterized.expand([
@@ -50,7 +52,9 @@ class TestGetJson(unittest.TestCase):
         ("http://holberton.io", {"payload": False}),
     ])
     def test_get_json(self, test_url: str, test_payload: Dict) -> None:
-        """Test get_json returns correct output and makes correct HTTP calls."""
+        """
+        Test get_json returns correct output and makes correct HTTP calls.
+        """
         mock_response = Mock()
         mock_response.json.return_value = test_payload
 
@@ -64,7 +68,9 @@ class TestMemoize(unittest.TestCase):
     """Test cases for memoize decorator"""
 
     def test_memoize(self) -> None:
-        """Test that when calling a_property twice, a_method is only called once."""
+        """
+        Test that when calling a_property twice, a_method is only called once.
+        """
         class TestClass:
             """Test class for memoization"""
 
